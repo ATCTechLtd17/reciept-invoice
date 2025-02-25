@@ -11,8 +11,8 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Receipt className="h-8 w-8 text-indigo-600" />
-              <span className="ml-2 text-xl font-bold text-gray-800">ATC Money Receipt</span>
+              <img className="h-16 w-16 text-indigo-600" src='https://i.ibb.co.com/pBFDhLV8/ATC.png'/>
+              
             </div>
           </div>
           

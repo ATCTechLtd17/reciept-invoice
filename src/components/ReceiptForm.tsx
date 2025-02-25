@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, Trash2, Calculator, Eye, Printer } from 'lucide-react';
+import { Plus, Trash2, Eye, Printer } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
 import type { ReceiptFormData } from '../types/receipt';
 import { receiptFormSchema } from '../types/receipt';
