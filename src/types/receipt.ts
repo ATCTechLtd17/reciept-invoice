@@ -24,6 +24,7 @@ export type Service = z.infer<typeof serviceSchema>;
 export type ReceiptFormData = z.infer<typeof receiptFormSchema>;
 
 export interface Receipt extends ReceiptFormData {
+  depositAmount: number;
   id: string;
   date: string;
   status: 'Pending' | 'Paid';
