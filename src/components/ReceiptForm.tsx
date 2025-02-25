@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, Trash2, Eye, Printer } from 'lucide-react';
+import { Plus, Trash2,  Eye, Printer } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
 import type { ReceiptFormData } from '../types/receipt';
 import { receiptFormSchema } from '../types/receipt';
@@ -23,6 +23,11 @@ const ReceiptForm: React.FC = () => {
       tax: 0,
       vat: 0,
       discount: 0,
+      subtotal: 0,
+      grossTotal: 0,
+      payableAmount: 0,
+      depositAmount: 0,
+      dueAmount: 0,
       total: 0
     }
   });
@@ -36,20 +41,38 @@ const ReceiptForm: React.FC = () => {
   const watchTax = watch('tax');
   const watchVAT = watch('vat');
   const watchDiscount = watch('discount');
+  const watchDepositAmount = watch('depositAmount');
   const formData = watch();
 
   React.useEffect(() => {
+    // Calculate subtotal
     const subtotal = watchServices.reduce((acc, service) => {
       return acc + (service.unit * service.price);
     }, 0);
+    setValue('subtotal', subtotal);
 
+    // Calculate tax and VAT amounts
     const taxAmount = (subtotal * watchTax) / 100;
     const vatAmount = (subtotal * watchVAT) / 100;
+    
+    // Calculate gross total (Subtotal + Tax + VAT)
+    const grossTotal = subtotal + taxAmount + vatAmount;
+    setValue('grossTotal', grossTotal);
+    
+    // Calculate discount amount
     const discountAmount = (subtotal * watchDiscount) / 100;
     
-    const total = subtotal + taxAmount + vatAmount - discountAmount;
-    setValue('total', total);
-  }, [watchServices, watchTax, watchVAT, watchDiscount, setValue]);
+    // Calculate payable amount (Gross Total - Discount)
+    const payableAmount = grossTotal - discountAmount;
+    setValue('payableAmount', payableAmount);
+    
+    // Calculate due amount (Payable Amount - Deposit Amount)
+    const dueAmount = payableAmount - (watchDepositAmount || 0);
+    setValue('dueAmount', dueAmount);
+    
+    // For backward compatibility
+    setValue('total', payableAmount);
+  }, [watchServices, watchTax, watchVAT, watchDiscount, watchDepositAmount, setValue]);
 
   const handlePrint = useReactToPrint({
     content: () => previewRef.current,
@@ -265,9 +288,46 @@ const ReceiptForm: React.FC = () => {
             </div>
           </div>
 
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Deposit Amount</label>
+              <input
+                type="number"
+                {...register('depositAmount', { valueAsNumber: true })}
+                className={`mt-1 block w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 ${
+                  errors.depositAmount ? 'border-red-300' : 'border-gray-300'
+                }`}
+              />
+              {errors.depositAmount && (
+                <p className="mt-1 text-sm text-red-600">{errors.depositAmount.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-sm font-medium text-gray-700">
+                Subtotal:
+                <span className="ml-2 font-bold">৳ {watch('subtotal').toLocaleString()}</span>
+              </div>
+              <div className="text-sm font-medium text-gray-700">
+                Gross Total (Subtotal + Tax + VAT):
+                <span className="ml-2 font-bold">৳ {watch('grossTotal').toLocaleString()}</span>
+              </div>
+              <div className="text-sm font-medium text-gray-700">
+                Payable Amount (Gross Total - Discount):
+                <span className="ml-2 font-bold">৳ {watch('payableAmount').toLocaleString()}</span>
+              </div>
+              <div className="text-sm font-medium text-gray-700">
+                Due Amount (Payable - Deposit):
+                <span className="ml-2 font-bold">৳ {watch('dueAmount').toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-between items-center pt-4 border-t">
             <div className="text-2xl font-bold text-gray-900">
-              Total: ৳ {watch('total').toLocaleString()}
+              Total Payable: ৳ {watch('payableAmount').toLocaleString()}
             </div>
             
             <div className="flex space-x-4">
