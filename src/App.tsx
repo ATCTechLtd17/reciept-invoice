@@ -1,22 +1,12 @@
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import ReceiptForm from './pages/dashboard/ReceiptForm';
-import ReceiptHistory from './pages/dashboard/ReceiptHistory';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/route';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <main className="container mx-auto px-4 py-8">
-          <Routes>
-            <Route path="/" element={<ReceiptForm />} />
-            <Route path="/history" element={<ReceiptHistory />} />
-          </Routes>
-        </main>
-      </div>
+      <AppRoutes />
     </Router>
   );
 }
+
 export default App;

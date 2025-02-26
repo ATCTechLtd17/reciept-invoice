@@ -8,11 +8,7 @@ const Sidebar = () => {
       icon: <Receipt className="w-5 h-5" />,
       label: 'Money Receipt'
     },
-    {
-      path: '/dashboard/money-receipt/create',
-      icon: <Plus className="w-5 h-5" />,
-      label: 'Create Receipt'
-    },
+    
     {
       path: '/dashboard/invoice',
       icon: <FileText className="w-5 h-5" />,
