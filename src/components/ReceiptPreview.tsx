@@ -7,7 +7,7 @@ interface ReceiptPreviewProps {
 }
 
 const ReceiptPreview = forwardRef<HTMLDivElement, ReceiptPreviewProps>(
-  ({ receipt, logoUrl = '/path/to/default/logo.png' }, ref) => {
+  ({ receipt, logoUrl = 'https://i.ibb.co.com/pBFDhLV8/ATC.png' }, ref) => {
     const calculateSubtotal = () => {
       return receipt.services.reduce((acc, service) => acc + (service.unit * service.price), 0);
     };
@@ -22,7 +22,7 @@ const ReceiptPreview = forwardRef<HTMLDivElement, ReceiptPreviewProps>(
     const dueAmount = payableAmount - (receipt.depositAmount || 0);
 
     return (
-      <div ref={ref} className="bg-white p-4 max-w-md mx-auto text-sm">
+      <div ref={ref} className="bg-white p-4 max-w-lg mx-auto text-sm">
         {/* Header with Logo */}
         <div className="mb-3 flex items-center justify-between">
           <div className="w-16">
@@ -125,8 +125,8 @@ const ReceiptPreview = forwardRef<HTMLDivElement, ReceiptPreviewProps>(
 
         {/* Disclaimer */}
         <div className="text-xs">
-          <p className="mb-1"><strong>Disclaimer:</strong> This is a system-generated electronic invoice</p>
-          <p className="text-center">Please reserve the invoice copy</p>
+          <p className="mb-1"><strong>Disclaimer:</strong> This is a system-generated electronic invoice. Please reserve the invoice copy</p>
+          <p className="text-center"></p>
         </div>
       </div>
     );
