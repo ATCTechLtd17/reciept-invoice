@@ -1,7 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import ReceiptForm from './components/ReceiptForm';
+import ReceiptForm from './pages/dashboard/ReceiptForm';
 import ReceiptHistory from './components/ReceiptHistory';
 
 function App() {

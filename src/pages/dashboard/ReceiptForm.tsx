@@ -3,9 +3,9 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Trash2,  Eye, Printer } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
-import type { ReceiptFormData } from '../types/receipt';
-import { receiptFormSchema } from '../types/receipt';
-import ReceiptPreview from './ReceiptPreview';
+import type { ReceiptFormData } from '../../types/receipt';
+import { receiptFormSchema } from '../../types/receipt';
+import ReceiptPreview from '../../components/ReceiptPreview';
 
 const ReceiptForm: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
