@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ReceiptForm from './pages/dashboard/ReceiptForm';
-import ReceiptHistory from './components/ReceiptHistory';
+import ReceiptHistory from './pages/dashboard/ReceiptHistory';
 
 function App() {
   return (

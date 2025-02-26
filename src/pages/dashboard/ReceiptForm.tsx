@@ -5,7 +5,7 @@ import { Plus, Trash2,  Eye, Printer } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
 import type { ReceiptFormData } from '../../types/receipt';
 import { receiptFormSchema } from '../../types/receipt';
-import ReceiptPreview from '../../components/ReceiptPreview';
+import ReceiptPreview from './ReceiptPreview';
 
 const ReceiptForm: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);

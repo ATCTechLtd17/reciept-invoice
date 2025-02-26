@@ -1,5 +1,5 @@
 import  { forwardRef } from 'react';
-import type { Receipt } from '../types/receipt';
+import type { Receipt } from '../../types/receipt';
 
 interface ReceiptPreviewProps {
   receipt: Receipt;

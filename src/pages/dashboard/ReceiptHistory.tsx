@@ -1,6 +1,6 @@
 import React from 'react';
 import { FileText, Download, Printer } from 'lucide-react';
-import type { Receipt } from '../types/receipt';
+import type { Receipt } from '../../types/receipt';
 
 const ReceiptHistory: React.FC = () => {
   const [receipts, setReceipts] = React.useState<Receipt[]>([]);
