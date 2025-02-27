@@ -32,3 +32,18 @@ export interface Receipt extends ReceiptFormData {
   date: string;
   status: 'Pending' | 'Paid' | 'Cancelled';
 }
+export interface Receipt {
+  id: string;
+  serialNo: string;
+  date: string;
+  name: string;
+  applicantId: string;
+  mobile: string;
+  course: string;
+  fees: string;
+  feesAfterDiscount: string;
+  paymentMethod: string;
+  paidAmount: string;
+  referrerName: string;
+  referrerContact: string;
+}
